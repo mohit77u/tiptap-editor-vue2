@@ -7,10 +7,10 @@
 
         <div class="editor-data">
             <div class="heading" @click="handleElementClick($event, 'heading')">
-                <ContentEditor v-model="heading" :modalValue="heading" :editable="editableKey" :contentKey="'heading'" type="string" :editorVisible="editorVisible" class="text-5xl font-bold text-slate-800 mb-3" nodeType="mainHeading" />
+                <ContentEditor @input="getEditorData" :modalValue="heading" :editable="editableKey" :contentKey="'heading'" type="object" :editorVisible="editorVisible" class="text-5xl font-bold text-slate-800 mb-3" nodeType="mainHeading" />
             </div>
             <div class="para" @click="handleElementClick($event, 'para')">
-                <ContentEditor v-model="para" :modalValue="para" :editable="editableKey" :contentKey="'para'" type="string"  :editorVisible="editorVisible" class="text-md text-slate-600 mb-3"  nodeType="paragraph" />
+                <ContentEditor @input="getEditorData" :modalValue="para" :editable="editableKey" :contentKey="'para'" type="object"  :editorVisible="editorVisible" class="text-md text-slate-600 mb-3"  nodeType="paragraph" />
             </div>
         </div>
 

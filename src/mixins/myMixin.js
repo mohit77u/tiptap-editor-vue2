@@ -51,7 +51,9 @@ export default {
                     Highlight.configure({
                         multicolor: true,
                     }),
-                    Placeholder,
+                    Placeholder.configure({
+                        placeholder: "Type / to choose a block",
+                    }),
                     Superscript,
                     TextAlign.configure({
                         types: ['heading', 'paragraph'],

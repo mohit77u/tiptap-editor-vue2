@@ -55,3 +55,9 @@ h2.custom-heading {
 h3.custom-heading {
     font-size: 28px;
 }
+
+.disabled-menu {
+    .icon {
+        opacity: 0.2;
+    }
+}

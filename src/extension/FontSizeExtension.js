@@ -7,7 +7,7 @@ export const FontSizeExtension = Extension.create({
     addOptions() {
         return {
             types: ['textStyle'],
-            getStyle: (fontSize)=>{
+            getStyle: (fontSize) => {
                 return `font-size: ${fontSize}`
             }
         };
@@ -38,10 +38,8 @@ export const FontSizeExtension = Extension.create({
 
     addCommands() {
         return {
-            setFontSize: fontSize => ({ chain }) => {
-                return chain()
-                  .setMark('textStyle', { fontSize })
-                  .run();
+            setFontSize: (fontSize) => ({ chain }) => {
+                return chain().setMark('textStyle', { fontSize }).run();
             },
         };
       },
