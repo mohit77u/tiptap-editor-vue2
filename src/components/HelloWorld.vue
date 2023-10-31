@@ -1,58 +1,55 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+    <div class="editor-main w-8/12 mx-auto px-12 py-12 relative">
+        
+        <div class="text-right mb-5">
+            <button class="border border-emerald-300 text-emerald-400 focus:ring-0 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center tracking-wider" @click="editorVisible = !editorVisible;">Turn {{ editorVisible ? 'Off' : 'On' }}</button>
+        </div>
+
+        <div class="editor-data">
+            <div class="heading" @click="handleElementClick($event, 'heading')">
+                <ContentEditor v-model="heading" :modalValue="heading" :editable="editableKey" :contentKey="'heading'" type="string" :editorVisible="editorVisible" class="text-5xl font-bold text-slate-800 mb-3" nodeType="mainHeading" />
+            </div>
+            <div class="para" @click="handleElementClick($event, 'para')">
+                <ContentEditor v-model="para" :modalValue="para" :editable="editableKey" :contentKey="'para'" type="string"  :editorVisible="editorVisible" class="text-md text-slate-600 mb-3"  nodeType="paragraph" />
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+    import ContentEditor from './ContentEditor.vue'
+    
+    export default {
+        name: 'HelloWorld',
+        components: {
+            ContentEditor,
+        },
+        data() {
+            return {
+                value: '',
+                element: '',
+                heading: 'This is an editable heading',
+                para: 'I\'m running Tiptap with Vue.js. 🎉',
+                editableKey: '',
+                editor: '',
+                editorVisible: false,
+            }
+        },
+        mounted() {
+            
+        },
+        methods: {
+            handleElementClick(e, key) {
+                if(this.editorVisible) {
+                    this.element = e.target;
+                    this.value = this[key];
+                    this.editableKey = key;
+                }
+            },
+            getEditorData(data) {
+                this[data.key] = data.value
+            },
+        }
+    }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
