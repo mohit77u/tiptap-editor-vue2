@@ -43,7 +43,7 @@ p.custom-paragraph {
 
 a{
     color: rgb(0, 170, 255);
-    text-decoration: underline;
+    text-decoration: none;
     text-underline-offset: 4px;
 }
 h1.custom-heading {
@@ -56,8 +56,3 @@ h3.custom-heading {
     font-size: 28px;
 }
 
-.disabled-menu {
-    .icon {
-        opacity: 0.2;
-    }
-}

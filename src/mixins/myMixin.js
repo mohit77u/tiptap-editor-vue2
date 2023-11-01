@@ -13,15 +13,24 @@ import Highlight from "@tiptap/extension-highlight";
 import CharacterCount from '@tiptap/extension-character-count';
 import { CustomCommands } from '../extension/CustomCommands';
 import { FontSizeExtension } from '../extension/FontSizeExtension';
+import Document from '@tiptap/extension-document'
 
 export default {
     data() {
         return {
             editorContentFontSize: '',
+            editortextColor: '',
+            editorHighlightColor: '',
+            placeholders: {
+                'POC'           : 'POC Name',
+                'FIRST_NAME'    : 'Micheal',
+                'LAST_NAME'     : 'Moore',
+                'EMAIL'         : 'micheal@hireawiz.com',
+            }
         };
     },
     methods: {
-        initEditor(value='', editable=false, type='object', mode='html', contentKey) {
+        initEditor(value='', editable=false, type='object', mode='html', contentKey, docType) {
             const self = this
 
             const editor = new Editor({
@@ -40,6 +49,10 @@ export default {
                             levels: [1, 2, 3],
                             HTMLAttributes: { class: 'custom-heading' },
                         },
+                        document: false
+                    }),
+                    Document.extend({
+                        content: docType == 'text' ? 'text*' : 'block*',
                     }),
                     Link.configure({
                         openOnClick: false,
@@ -60,16 +73,18 @@ export default {
                     }),
                     CharacterCount,
                     CustomCommands,
-                    FontSizeExtension
+                    FontSizeExtension,
+                    
                 ],
                 
             })
 
             editor.on('update', () => {
 
-                let jsonData = editor.getJSON().content
-                let htmlData = editor.getHTML()
-                htmlData = htmlData.replaceAll('<p></p>', '<br />');
+                let jsonData    = editor.getJSON().content
+                let htmlData    = editor.getHTML()
+                htmlData        = htmlData.replaceAll('<p></p>', '<br />');
+                htmlData        = this.compilePlaceholders(htmlData);
 
                 let data = {
                     key: contentKey,
@@ -90,11 +105,17 @@ export default {
             })
 
             editor.on('focus', ({ editor }) => {
-                const size = editor.getAttributes( 'textStyle' ).fontSize
-                this.editorContentFontSize = size ?? '';
+                this.editorContentFontSize  = editor.getAttributes( 'textStyle' ).fontSize ?? '';
+                this.editortextColor        = editor.getAttributes('textStyle').color ?? '';
+                this.editorHighlightColor   = editor.getAttributes('highlight').color ?? '';
             })
 
             return editor;
+        },
+        compilePlaceholders(data) {
+            return data.replace(/\[([A-Z_]+)\]/g, (match, key) => {
+                return this.placeholders[key] || match;
+            });
         }
     }
 }

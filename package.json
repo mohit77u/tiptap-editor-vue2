@@ -15,6 +15,7 @@
     "@tiptap/extension-heading": "^2.1.12",
     "@tiptap/extension-highlight": "^2.1.12",
     "@tiptap/extension-link": "^2.1.12",
+    "@tiptap/extension-list-item": "^2.1.12",
     "@tiptap/extension-paragraph": "^2.1.12",
     "@tiptap/extension-placeholder": "^2.1.12",
     "@tiptap/extension-subscript": "^2.1.12",
@@ -33,7 +34,7 @@
     "tiptap": "^1.32.2",
     "tiptap-extensions": "^1.35.2",
     "vue": "^2.7.0",
-    "vue-color": "^2.8.1"
+    "vue-color": "^2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
